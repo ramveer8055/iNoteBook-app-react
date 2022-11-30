@@ -7,9 +7,13 @@ const AddNote = (props) => {
     const [note, setNote] = useState({ title: "", description: "", tag: "" })
     const handleClick = (e) => {
         e.preventDefault();
-        addNote(note.title, note.description, note.tag)
-        setNote({ title: "", description: "", tag: "" })
-        props.showAlerts("added note successfully !", "success")
+        if(!note.title || !note.description){
+            props.showAlerts("please add note !", "danger")
+        }else{
+            addNote(note.title, note.description, note.tag)
+            setNote({ title: "", description: "", tag: "" })
+            props.showAlerts("added note successfully !", "success")
+        }
     }
     const onchange = (e)=>{
         setNote({...note, [e.target.name]: e.target.value})
